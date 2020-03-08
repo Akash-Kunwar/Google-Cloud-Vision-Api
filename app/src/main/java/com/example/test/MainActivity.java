@@ -148,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
 
             protected void onPostExecute(String result) {
                 visionAPIData.setText(result);
+                Intent i =new Intent(getApplicationContext(),display.class);
+                i.putExtra("my key",result);
+                startActivity(i);
                 imageUploadProgress.setVisibility(View.INVISIBLE);
             }
         }.execute();
@@ -211,8 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (entityAnnotation != null) {
             for (EntityAnnotation entity : entityAnnotation) {
-                message = message + "    " + entity.getDescription() + " " + entity.getScore();
-                message += "\n";
+                message =entity.getDescription() ;
             }
         } else {
             message = "Nothing Found";
