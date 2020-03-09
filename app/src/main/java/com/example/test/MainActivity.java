@@ -1,6 +1,7 @@
 package com.example.test;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    @SuppressLint("StaticFieldLeak")
     private void callCloudVision(final Bitmap bitmap, final Feature feature) {
         imageUploadProgress.setVisibility(View.VISIBLE);
         final List<Feature> featureList = new ArrayList<>();
@@ -148,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
 
             protected void onPostExecute(String result) {
                 visionAPIData.setText(result);
+                Intent i =new Intent(getApplicationContext(),display.class);
+                i.putExtra("my key",result);
+                startActivity(i);
                 imageUploadProgress.setVisibility(View.INVISIBLE);
             }
         }.execute();
@@ -211,8 +216,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (entityAnnotation != null) {
             for (EntityAnnotation entity : entityAnnotation) {
-                message = message + "    " + entity.getDescription() + " " + entity.getScore();
-                message += "\n";
+
+                message =entity.getDescription() ;
             }
         } else {
             message = "Nothing Found";
